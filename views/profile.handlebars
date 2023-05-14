@@ -1,0 +1,43 @@
+<div class="greeting-section">
+  <h2>Greetings, {{username}}!</h2> 
+</div>
+
+<div class="blog-section">
+  <div class="new-blog-area">
+    <h3>Create Your New Blog:</h3>
+
+    <form class="new-blog-form">
+      <div class="input-group">
+        <label for="blog-title">Blog Title:</label>
+        <input type="text" id="blog-title" name="blog-title" class="input-field" />
+      </div>
+    
+      <div class="input-group">
+        <label for="blog-desc">Description:</label>
+        <textarea id="blog-desc" name="blog-desc" class="input-field"></textarea>
+      </div>
+      <div class="input-group">
+        <button type="submit" class="submit-btn">Create</button>
+      </div>
+    </form>
+  </div>
+
+  {{#if blogs.length}}
+  <div class="existing-blog-area">
+    <h3>Your Blogs:</h3>
+
+    {{#each blogs as |blog|}}
+    <div class="blog-item">
+      <div class="blog-title-area">
+        <h4><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h4>
+      </div>
+      <div class="blog-action-area">
+        <button class="delete-btn" data-id="{{blog.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{/if}}
+</div>
+
+<script src="./js/profile.js"></script>
