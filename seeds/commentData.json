@@ -1,0 +1,17 @@
+[
+    {
+      "blog_id": 1,
+      "comment_description": "I both love and hate this app.",
+      "user_id": 1
+    },
+    {
+      "blog_id": 2,
+      "comment_description": "Now that's what I need ! Credit score going up up up up...",
+      "user_id": 2
+    },
+    {
+      "blog_id": 3,
+      "comment_description": "This is going to save me alot of money since I always find myself more than others for the same things.",
+      "user_id": 3
+    }
+  ]
