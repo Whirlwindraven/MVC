@@ -1,0 +1,17 @@
+<!-- Iterate over each object in the blogs array -->
+{{#each blogs as |blog| }}
+<div class="blog-item">
+  <div class="blog-header">
+    <h3>
+      <!-- Call helper function with triple brackets -->
+      <a href="/blog/{{blog.id}}" class="blog-title">{{blog.blog_title}}</a>
+    </h3>
+    <p class="blog-author">Posted by {{blog.user.username}} on {{format_date blog.date_created}}</p>
+  </div>
+  <div class="blog-body">
+    <p class="blog-description">
+      {{blog.description}}
+    </p>
+  </div>
+</div>
+{{/each}}
