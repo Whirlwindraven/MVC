@@ -1,34 +1,34 @@
-async function submitForm(event, postUrl, redirectPath) {
-    event.preventDefault();
+async function processCommentSubmission(e) {
+    e.preventDefault();
 
-    const form = event.target;
-    const formContent = new FormData(form);
+    const commentForm = document.querySelector('.comment-form');
+    const commentText = document.querySelector('#comment-text').value.trim();
+    const associatedBlogId = commentForm.getAttribute('data-blog-id');
 
-    try {
-        const serverResponse = await fetch(postUrl, {
+    if (commentText) {
+        console.log("Initiating comment post...");
+
+        const commentResponse = await fetch('/api/comments', {
             method: 'POST',
-            body: formContent,
+            body: JSON.stringify({ 
+                blog_id: associatedBlogId, 
+                comment_description: commentText 
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
-        if (serverResponse.ok) {
-            location.replace(redirectPath);
+        console.log("Comment post completed...");
+
+        if (commentResponse.ok) {
+            location.reload();
         } else {
-            const errorText = await serverResponse.text();
-            throw new Error(errorText);
+            throw new Error('Unable to post comment');
         }
-    } catch (err) {
-        console.error(err);
-        alert('Unable to submit form');
     }
-}
-
-const processLoginForm = (event) => {
-    submitForm(event, '/api/users/login', '/dashboard');
 };
 
-const processSignupForm = (event) => {
-    submitForm(event, '/api/users', '/dashboard');
-};
-
-document.querySelector('.signin-form').addEventListener('submit', processLoginForm);
-document.querySelector('.register-form').addEventListener('submit', processSignupForm);
+document
+    .querySelector('.comment-form')
+    .addEventListener('submit', processCommentSubmission);
