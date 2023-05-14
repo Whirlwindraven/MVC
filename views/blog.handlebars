@@ -1,0 +1,26 @@
+<div class="blog-container">
+  <div class="blog-content">
+    <h2 class="blog-title">{{title}}</h2>
+    <p class="blog-desc">{{description}}</p>
+    <p class="blog-author-date">Authored by {{user.username}} on {{format_date date_created}}</p>
+  </div>
+
+  {{#if logged_in}}
+  <form class="comment-form" data-blogid={{id}}>
+    <div class="comment-input">
+      <textarea id='comment_description' name="comment-body"></textarea>
+    </div>
+    <div class="comment-submit">
+      <button class="submit-button" type="submit">Add Comment</button>
+    </div>
+  </form>
+  {{/if}}
+
+  <div class="comments-section">
+    {{#each comments as |comment|}}
+    <div class="comment-item">
+      <p>{{comment.comment_description}}</p>
+    </div>
+    {{/each}}
+  </div>
+</div>
