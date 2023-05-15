@@ -1,7 +1,7 @@
 const express = require('express');
 const routeDefs = [
-  { path: '/users', route: require('./userRoutes') },
-  { path: '/blogs', route: require('./blogRoutes') },
+  { path: '/users', route: require('./userRoute') },
+  { path: '/blogs', route: require('./blogRoute') },
   { path: '/comments', route: require('./commentRoute') },
 ];
 

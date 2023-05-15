@@ -1,27 +1,27 @@
 // Models import
-const UserModel = require('./user');
-const BlogModel = require('./blog');
-const CommentModel = require('./comment');
+const User = require('./user');
+const Blog = require('./blog');
+const Comment= require('./comment');
 
 // A User can own multiple Blogs
-UserModel.hasMany(BlogModel, {
+User.hasMany(Blog, {
   foreignKey: 'user_id',
   onDelete: 'CASCADE'
 });
 
 // A Blog is owned by a User
-BlogModel.belongsTo(UserModel, {
+Blog.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
 // A Blog can have many Comments
-BlogModel.hasMany(CommentModel,{
+Blog.hasMany(Comment,{
   foreignKey: 'blog_id'
 });
 
 // A Comment is made by a User
-CommentModel.belongsTo(UserModel, {
+Comment.belongsTo(User, {
   foreignKey: 'user_id'
 });
 
-module.exports = { UserModel, BlogModel, CommentModel };
+module.exports = { User, Blog, Comment };

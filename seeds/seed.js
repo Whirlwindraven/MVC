@@ -1,4 +1,4 @@
-const { User, Post, Comment } = require('../models');
+const { User, Blog, Comment } = require('../models');
 const sequelizeConnection = require('../config/connection');
 
 // Incorporate data from JSON files
