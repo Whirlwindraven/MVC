@@ -1,4 +1,4 @@
-const sequelizeModule = require('../config/connection');
+const sequelize = require('../config/connection'); // Renamed from sequelizeModule to sequelize for clarity
 const { DataTypes, Model } = require('sequelize');
 
 class Comment extends Model {}
@@ -38,7 +38,7 @@ Comment.init(
     },
   },
   {
-    sequelize,
+    sequelize,  // Now it is correctly defined
     timestamps: false,
     freezeTableName: true,
     underscored: true,
