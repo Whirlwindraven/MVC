@@ -1,34 +1,40 @@
-async function processCommentSubmission(e) {
-    e.preventDefault();
+// This function creates the fetch request
+const createRequest = async (endpoint, formData) => {
+    return await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+    });
+};
 
-    const commentForm = document.querySelector('.comment-form');
-    const commentText = document.querySelector('#comment-text').value.trim();
-    const associatedBlogId = commentForm.getAttribute('data-blog-id');
-
-    if (commentText) {
-        console.log("Initiating comment post...");
-
-        const commentResponse = await fetch('/api/comments', {
-            method: 'POST',
-            body: JSON.stringify({ 
-                blog_id: associatedBlogId, 
-                comment_description: commentText 
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        console.log("Comment post completed...");
-
-        if (commentResponse.ok) {
-            location.reload();
-        } else {
-            throw new Error('Unable to post comment');
-        }
+// This function handles the response from the fetch request
+const handleResponse = async (response, redirectUrl) => {
+    if (response.ok) {
+        document.location.replace(redirectUrl);
+    } else {
+        const error = await response.text();
+        throw new Error(error);
     }
 };
 
-document
-    .querySelector('.comment-form')
-    .addEventListener('submit', processCommentSubmission);
+// This function submits the form
+const submitForm = async (event, endpoint, redirectUrl) => {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await createRequest(endpoint, formData);
+        await handleResponse(response, redirectUrl);
+    } catch (error) {
+        console.error(error);
+        alert('Failed to submit form');
+    }
+};
+
+// These functions pass the appropriate parameters to the submitForm function
+const loginFormSubmit = event => submitForm(event, '/api/users/login', '/profile');
+const signupFormSubmit = event => submitForm(event, '/api/users', '/profile');
+
+// These lines add the event listeners to the form submit events
+document.querySelector('.login-form').addEventListener('submit', loginFormSubmit);
+document.querySelector('.signup-form').addEventListener('submit', signupFormSubmit);
