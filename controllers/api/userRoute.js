@@ -7,7 +7,7 @@ async function handleSessionSave(req, userData, res) {
   req.session.save(() => {
     req.session.user_id = userData.id;
     req.session.logged_in = true;
-    res.json(userData);
+    res.json({ user: userData, message: 'You are now logged in!' });
   });
 }
 
@@ -18,7 +18,7 @@ router.route('/')
       res.status(200);
       handleSessionSave(req, userData, res);
     } catch (err) {
-      res.status(400).json(err);
+    res.status(400).json(err);
     }
   });
 
@@ -32,22 +32,7 @@ router.route('/login')
         return;
       }
 
-      res.json({ user: userData, message: 'You are now logged in!' });
       handleSessionSave(req, userData, res);
-    } catch (err) {
-      res.status(400).json(err);
-    }
-  });
-
-router.route('/signup')
-  .post(async (req, res) => {
-    try {
-      const newSignup = await User.create({
-        ...req.body,
-        user_id: req.session.user_id,
-      });
-
-      res.status(200).json(newSignup);
     } catch (err) {
       res.status(400).json(err);
     }
