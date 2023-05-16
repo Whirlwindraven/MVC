@@ -11,6 +11,7 @@ async function handleSessionSave(req, userData, res) {
   });
 }
 
+
 router.route('/')
   .post(async (req, res) => {
     try {
@@ -21,6 +22,18 @@ router.route('/')
     res.status(400).json(err);
     }
   });
+
+  router.route('/signup')
+  .post(async (req, res) => {
+    try {
+      const userData = await User.create(req.body);
+      res.status(200);
+      handleSessionSave(req, userData, res);
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
+
 
 router.route('/login')
   .post(async (req, res) => {
