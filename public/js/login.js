@@ -1,40 +1,54 @@
 // This function creates the fetch request
-const createRequest = async (endpoint, formData) => {
+const createRequest = async (endpoint, data) => {
     return await fetch(endpoint, {
         method: 'POST',
-        body: formData,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
     });
-};
-
-// This function handles the response from the fetch request
-const handleResponse = async (response, redirectUrl) => {
+  };
+  
+  // This function handles the response from the fetch request
+  const handleResponse = async (response, redirectUrl) => {
     if (response.ok) {
         document.location.replace(redirectUrl);
     } else {
-        const error = await response.text();
-        throw new Error(error);
+        const error = await response.json();
+        throw new Error(error.message);
     }
-};
-
-// This function submits the form
-const submitForm = async (event, endpoint, redirectUrl) => {
+  };
+  
+  // This function submits the form
+  const submitForm = async (event, endpoint, redirectUrl) => {
     event.preventDefault();
     const form = event.target;
-    const formData = new FormData(form);
-
+    const data = {
+        username: form.elements.username.value,
+        password: form.elements.password.value,
+    };
+  
     try {
-        const response = await createRequest(endpoint, formData);
+        const response = await createRequest(endpoint, data);
         await handleResponse(response, redirectUrl);
     } catch (error) {
-        console.error(error);
-        alert('Failed to submit form');
+        console.error('Error:', error);
+        alert('Failed to submit form: ' + error.message);
     }
-};
-
-// These functions pass the appropriate parameters to the submitForm function
-const loginFormSubmit = event => submitForm(event, '/api/users/login', '/profile');
-const signupFormSubmit = event => submitForm(event, '/api/users', '/profile');
-
-// These lines add the event listeners to the form submit events
-document.querySelector('.login-form').addEventListener('submit', loginFormSubmit);
-document.querySelector('.signup-form').addEventListener('submit', signupFormSubmit);
+  };
+  
+  // These functions pass the appropriate parameters to the submitForm function
+  const loginFormSubmit = event => submitForm(event, '/api/users/login', '/profile');
+  const signupFormSubmit = event => submitForm(event, '/api/users', '/profile');
+  
+  // These lines add the event listeners to the form submit events
+  const loginForm = document.querySelector('.login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', loginFormSubmit);
+  }
+  
+  const signupForm = document.querySelector('.signup-form');
+  if (signupForm) {
+    signupForm.addEventListener('submit', signupFormSubmit);
+  }
+  
