@@ -3,7 +3,7 @@
     
 ## Table of Contents
 - [Project Description](#Description)
-- [Video-demo](#Video-demo)
+- [Screenshot](#Screenshot)
 - [Usage](#Usage)
 - [Installation](#Installation)
 - [Contributing](#Contributing)
@@ -12,8 +12,9 @@
 
 ## Description
 This is a fullstack web application that mimics that of a technology blog where users can add their blogs and their description while also comment on the blogs of others. 
-## Video-demo
-Video demo can be accessed [here](https://youtu.be/msogcfnhVTA)
+## Screenshot
+![screenshot]()
+
 
 ## Usage
 Free use to for any organization.
