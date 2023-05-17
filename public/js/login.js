@@ -24,8 +24,8 @@ const createRequest = async (endpoint, data) => {
     event.preventDefault();
     const form = event.target;
     const data = {
-        username: form.elements.username.value,
-        password: form.elements.password.value,
+        username: form.elements['username-field'].value,
+        password: form.elements['password-field'].value,
     };
   
     try {
@@ -36,6 +36,7 @@ const createRequest = async (endpoint, data) => {
         alert('Failed to submit form: ' + error.message);
     }
   };
+  
   
   // These functions pass the appropriate parameters to the submitForm function
   const loginFormSubmit = event => submitForm(event, '/api/users/login', '/profile');
