@@ -12,9 +12,9 @@
 
 ## Description
 This is a fullstack web application that mimics that of a technology blog where users can add their blogs and their description while also comment on the blogs of others. 
-## Screenshot
-![screenshot]()
 
+## Screenshot
+![screenshot](./MVC%20screenshot.jpg)
 
 ## Usage
 Free use to for any organization.
