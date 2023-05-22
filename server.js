@@ -39,3 +39,4 @@ sequelize.sync({ force: false }).then(() => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
 });
+    
