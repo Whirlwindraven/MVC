@@ -18,7 +18,7 @@ router.route('/')
     try {
       const newComment = await Comment.create({
         ...req.body,
-        userId: req.session.userId,
+        user_id: req.session.user_id,
       });
       res.json(newComment);
     } catch (err) {
